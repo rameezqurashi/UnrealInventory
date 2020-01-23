@@ -99,7 +99,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	void SetPossibleStats(TSet<FString> PossibleStats);
 
-	/** Adds an inventory item type.
+	/** Adds an inventory item type. Ideally should add all possible items 
+	 * once on BeginPlay.
 	 * @param Name - The name of this inventory item.
 	 * @param FlavorText - The flavor text for this inventory item.
 	 * @param Thumbnail - The texture to be used for this inventory item's 
