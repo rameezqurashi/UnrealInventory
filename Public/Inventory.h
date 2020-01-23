@@ -121,7 +121,7 @@ public:
 	 * thumbnail.
 	 * @param FullImage - The texture to be used for this inventory item's 
 	 * full image.
-	 * @param StatsBoostsAndDurations - An unordered_map containing strings 
+	 * @param StatsBoostsAndDurations - A TMap containing strings 
 	 * specifying a stat and a BoostAndDuration struct which specifies the 
 	 * boost to the respective stat as well as the duration of the boost. 
 	 * @param MaximumQuantity - The maximum allowable quantity of this item.
