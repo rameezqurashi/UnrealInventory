@@ -16,7 +16,7 @@ enum class InventoryError : int32
 	EDuplicateItemType			UMETA(DisplayName = "DuplicateItemType"),
 	EInvalidItemType			UMETA(DisplayName = "InvalidItemType"),
 	EMaxQuantityExceeded		UMETA(DisplayName = "MaxQuantityExceeded"),
-	ENotEnoughItemsToConsume	UMETA(DisplayName = "NotEnoughItemsToConsume"),
+	ENoItemsToConsume			UMETA(DisplayName = "NoItemsToConsume"),
 	ENotEquippable				UMETA(DisplayName = "NotEquippable"),
 	EAlreadyEquipped			UMETA(DisplayName = "AlreadyEquipped"),
 	ENotEquipped				UMETA(DisplayName = "NotEquipped"),
@@ -157,7 +157,8 @@ public:
 	InventoryError AddItem(const FString& ItemToAdd, const int Quantity = 1);
 
 	/** Consume a desired quantity of an item in the inventory. ItemToConsume
-	 * must be consumable.
+	 * must be consumable. If Quantity is greater than quantity of ItemToConsume,
+	 * ItemToConsume.Quantity will be set to 0.
 	 * @param ItemToConsume is a string containing the name of an item in the
 	 * inventory to consume Quantity of. 
 	 * @param Quantity is the number of items of ItemToConsume type to consume
@@ -165,7 +166,7 @@ public:
 	 * @return ESuccess if quantity of ItemToConsume was successfully reduced
 	 * by Quantity.
 	 * EInvalidItemType if ItemToConsume does not exist in the inventory.
-	 * ENotEnoughItemsToConsume if quantity of ItemToConsume is less than Quantity.
+	 * ENoItemsToConsume if quantity of ItemToConsume is 0.
 	 * ENotConsumable if item is not consumable.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Inventory")

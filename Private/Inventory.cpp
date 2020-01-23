@@ -113,7 +113,18 @@ InventoryError UInventory::AddItem(const FString& ItemToAdd, const int Quantity 
 
 InventoryError UInventory::ConsumeItem(const FString& ItemToConsume, const int Quantity /* = 1 */)
 {
-	return InventoryError();
+	if (!Inventory.Contains(ItemToConsume))
+		return InventoryError::EInvalidItemType;
+
+	if (Inventory[ItemToConsume].Quantity == 0)
+		return InventoryError::ENoItemsToConsume;
+
+	if (Inventory[ItemToConsume].Quantity - Quantity <= 0)
+		Inventory[ItemToConsume].Quantity = 0;
+	else
+		Inventory[ItemToConsume].Quantity -= Quantity;
+
+	return InventoryError::ESuccess;
 }
 
 InventoryError UInventory::EquipItem(const FString& ItemToEquip)
