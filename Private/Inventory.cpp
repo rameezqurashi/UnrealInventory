@@ -49,13 +49,14 @@ InventoryError UInventory::AddPossibleStat(const FString PossibleStat)
 
 TArray<FString> UInventory::GetPossibleStats()
 {
-	TArray<FString> possibleStatsArray;
+	TArray<FString> PossibleStatsArray;
 
 	for (auto& Elem : PossibleStats)
 	{
-
+		PossibleStatsArray.Add(*Elem);
 	}
-	return TArray<FString>();
+
+	return PossibleStatsArray;
 }
 
 InventoryError UInventory::AddInventoryItemType(const FString& Name, 
