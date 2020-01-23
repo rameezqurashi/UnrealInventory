@@ -99,6 +99,12 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	void SetPossibleStats(TSet<FString> PossibleStats);
 
+	/** Gets the possible stats for items included in this inventory. 
+	 * @return TSet of all possible stats in this inventory
+	 */
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
+	TSet<FString> GetPossibleStats();
+
 	/** Adds an inventory item type. Ideally should add all possible items 
 	 * once on BeginPlay.
 	 * @param Name - The name of this inventory item.
@@ -201,4 +207,8 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
+private:
+	TSet<FString> possibleStats;
+
+	TMap<FInventoryItem, int> inventory;
 };
