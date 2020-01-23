@@ -20,7 +20,8 @@ enum class InventoryError : int32
 	ENotEquippable				UMETA(DisplayName = "NotEquippable"),
 	EAlreadyEquipped			UMETA(DisplayName = "AlreadyEquipped"),
 	ENotEquipped				UMETA(DisplayName = "NotEquipped"),
-	ENotConsumable				UMETA(DisplayName = "NotConsumable")
+	ENotConsumable				UMETA(DisplayName = "NotConsumable"),
+	EDuplicateStat				UMETA(DisplayName = "DuplicateStat")
 };
 
 USTRUCT(BlueprintType)
@@ -93,21 +94,24 @@ class INVENTORYSYSTEM_API UInventory : public UActorComponent
 public:	
 	UInventory();
 
-	/** Sets the possible stats for items included in this inventory. Should
-	 * just call once on BeginPlay.
-	 * @param PossibleStats - Defines possible stats to be used by all items
-	 * in this inventory
-	 * @warning For maximum safety possibleStats should probably be defined as
-	 * UENUMs and converted to strings using the GETENUMSTRING macro.
+	/** Adds a possible stat for items included in this inventory. Ideally 
+	 * should add all possible stats once on BeginPlay.
+	 * @param PossibleStat - Defines a possible stat for items in this 
+	 * inventory.
+	 * @return ESuccess if this PossibleStat was successfully added to the 
+	 * internal list of possible stats. 
+	 * EDuplicateStat if this stat is already in the internal list.
+	 * @warning For maximum safety PossibleStat should probably be defined as
+	 * a UENUM and converted to a string using the GETENUMSTRING macro.
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	void SetPossibleStats(TSet<FString> PossibleStats);
+	InventoryError AddPossibleStat(const FString PossibleStat);
 
 	/** Gets the possible stats for items included in this inventory. 
 	 * @return TSet of all possible stats in this inventory
 	 */
 	UFUNCTION(BlueprintCallable, Category = "Inventory")
-	TSet<FString> GetPossibleStats();
+	TArray<FString> GetPossibleStats();
 
 	/** Adds an inventory item type. Ideally should add all possible items 
 	 * once on BeginPlay.

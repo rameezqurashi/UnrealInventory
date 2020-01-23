@@ -37,14 +37,17 @@ void UInventory::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompo
 	// ...
 }
 
-void UInventory::SetPossibleStats(const TSet<FString> PossibleStats)
+InventoryError UInventory::AddPossibleStat(const FString PossibleStat)
 {
-	possibleStats = PossibleStats;
+
+		possibleStats.Add(PossibleStat);
+
+		return InventoryError();
 }
 
-TSet<FString> UInventory::GetPossibleStats()
+TArray<FString> UInventory::GetPossibleStats()
 {
-	return possibleStats;
+	return TArray<FString>();
 }
 
 InventoryError UInventory::AddInventoryItemType(const FString& Name, 
