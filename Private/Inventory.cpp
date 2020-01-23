@@ -98,12 +98,20 @@ InventoryError UInventory::AddInventoryItemType(const FString& Name,
 	return InventoryError::ESuccess;
 }
 
-InventoryError UInventory::AddItem(const FString& ItemToAdd, const int Quantity)
-{
-	return InventoryError();
+InventoryError UInventory::AddItem(const FString& ItemToAdd, const int Quantity /* = 1 */)
+{	
+	if (!Inventory.Contains(ItemToAdd))
+		return InventoryError::EInvalidItemType;
+
+	if (Inventory[ItemToAdd].Quantity + Quantity > Inventory[ItemToAdd].MaximumQuantity)
+		return InventoryError::EMaxQuantityExceeded;
+
+	Inventory[ItemToAdd].Quantity += Quantity;
+
+	return InventoryError::ESuccess;
 }
 
-InventoryError UInventory::ConsumeItem(const FString& ItemToConsume, const int Quantity)
+InventoryError UInventory::ConsumeItem(const FString& ItemToConsume, const int Quantity /* = 1 */)
 {
 	return InventoryError();
 }
