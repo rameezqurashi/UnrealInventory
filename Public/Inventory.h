@@ -62,7 +62,11 @@ struct FInventoryItem
 	// struct which specifies the boost to the respective stat as well as the
 	// duration of the boost.
 	UPROPERTY(BlueprintReadOnly, Category = "InventoryItem")
-	TMap<FString, FBoostAndDuration> statsBoostsAndDurations;
+	TMap<FString, FBoostAndDuration> StatsBoostsAndDurations;
+
+	// The current quantity of this inventory item. Negative values treated as 0.
+	UPROPERTY(BlueprintReadOnly, Category = "InventoryItem")
+	int Quantity = 0;
 
 	// The maximum allowable quantity of this inventory item. Negative values treated as 0.
 	UPROPERTY(BlueprintReadOnly, Category = "InventoryItem")
@@ -70,15 +74,15 @@ struct FInventoryItem
 
 	// Is this item equippable?
 	UPROPERTY(BlueprintReadOnly, Category = "InventoryItem")
-	bool isEquippable = false;
+	bool IsEquippable = false;
 
 	// Is this item equipped?
 	UPROPERTY(BlueprintReadOnly, Category = "InventoryItem")
-	bool isEquipped = false;
+	bool IsEquipped = false;
 
 	// Is this this item consumable?
 	UPROPERTY(BlueprintReadOnly, Category = "InventoryItem")
-	bool isConsumable = false;
+	bool IsConsumable = false;
 };
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
@@ -192,12 +196,12 @@ public:
 	/** Get the current inventory 
 	 * @return TMap containing all inventory items and their counts.
 	 */
-	TMap<FInventoryItem, int> GetInventory();
+	TArray<FInventoryItem> GetInventory();
 
 	/** Get equipped items
 	 * @return TSet containing all currently equipped inventory items.
 	 */
-	TSet<FInventoryItem> GetEquippedItems();
+	TArray<FInventoryItem> GetEquippedItems();
 
 protected:
 	// Called when the game starts
@@ -210,5 +214,5 @@ public:
 private:
 	TSet<FString> possibleStats;
 
-	TMap<FInventoryItem, int> inventory;
+	TMap<FString, FInventoryItem> inventory;
 };
