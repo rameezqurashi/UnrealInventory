@@ -16,7 +16,15 @@ UInventory::UInventory()
 
 TArray<FInventoryItem> UInventory::GetEquippedItems()
 {
-	return TArray<FInventoryItem>();
+	TArray<FInventoryItem> EquippedItemsArray;
+
+	for (auto& Elem : Inventory)
+	{
+		if (Elem.Value.IsEquipped)
+			EquippedItemsArray.Add(Elem.Value);
+	}
+
+	return EquippedItemsArray;
 }
 
 // Called when the game starts
