@@ -129,12 +129,33 @@ InventoryError UInventory::ConsumeItem(const FString& ItemToConsume, const int Q
 
 InventoryError UInventory::EquipItem(const FString& ItemToEquip)
 {
-	return InventoryError();
+	if (!Inventory.Contains(ItemToEquip))
+		return InventoryError::EInvalidItemType;
+	
+	if (!Inventory[ItemToEquip].IsEquippable)
+		return InventoryError::ENotEquippable;
+
+	if (Inventory[ItemToEquip].IsEquipped)
+		return InventoryError::EAlreadyEquipped;
+
+	Inventory[ItemToEquip].IsEquipped = true;
+
+	return InventoryError::ESuccess;
 }
 
 InventoryError UInventory::UnequipItem(const FString& ItemToUnequip)
 {
-	return InventoryError();
+	if (!Inventory.Contains(ItemToUnequip))
+		return InventoryError::EInvalidItemType;
+
+	if (!Inventory[ItemToUnequip].IsEquippable)
+		return InventoryError::ENotEquippable;
+
+	if (!Inventory[ItemToUnequip].IsEquipped)
+		return InventoryError::ENotEquipped;
+
+	Inventory[ItemToUnequip].IsEquipped = false;
+	return InventoryError::ESuccess;
 }
 
 TArray<FInventoryItem> UInventory::GetInventory()
