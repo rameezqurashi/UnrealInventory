@@ -86,7 +86,7 @@ struct FInventoryItem
 	bool IsConsumable = false;
 };
 
-UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
+UCLASS( ClassGroup=(Inventory), meta=(BlueprintSpawnableComponent) )
 class INVENTORYSYSTEM_API UInventory : public UActorComponent
 {
 	GENERATED_BODY()
