@@ -120,5 +120,12 @@ InventoryError UInventory::UnequipItem(const FString& ItemToUnequip)
 
 TArray<FInventoryItem> UInventory::GetInventory()
 {
-	return TArray<FInventoryItem>();
+	TArray<FInventoryItem> InventoryArray;
+
+	for (auto& Elem : Inventory)
+	{
+		InventoryArray.Add(Elem.Value);
+	}
+
+	return InventoryArray;
 }
