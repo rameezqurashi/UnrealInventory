@@ -216,7 +216,7 @@ public:
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 	
 private:
-	TSet<FString> possibleStats;
+	TSet<FString> PossibleStats;
 
-	TMap<FString, FInventoryItem> inventory;
+	TMap<FString, FInventoryItem> Inventory;
 };

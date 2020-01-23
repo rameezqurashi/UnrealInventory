@@ -39,16 +39,22 @@ void UInventory::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompo
 
 InventoryError UInventory::AddPossibleStat(const FString PossibleStat)
 {
-	if (possibleStats.Contains(PossibleStat))
+	if (PossibleStats.Contains(PossibleStat))
 		return InventoryError::EDuplicateStat;
 
-	possibleStats.Add(PossibleStat);
+	PossibleStats.Add(PossibleStat);
 
 	return InventoryError::ESuccess;
 }
 
 TArray<FString> UInventory::GetPossibleStats()
 {
+	TArray<FString> possibleStatsArray;
+
+	for (auto& Elem : PossibleStats)
+	{
+
+	}
 	return TArray<FString>();
 }
 
@@ -62,7 +68,7 @@ InventoryError UInventory::AddInventoryItemType(const FString& Name,
 {
 	for (auto& Elem : StatsBoostsAndDurations)
 	{
-		if (!possibleStats.Contains(Elem.Key))
+		if (!PossibleStats.Contains(Elem.Key))
 			return InventoryError::EInvalidStatUsed;
 	}
 
@@ -75,10 +81,10 @@ InventoryError UInventory::AddInventoryItemType(const FString& Name,
 	inventoryItemToAdd.IsConsumable = IsConsumable;
 	inventoryItemToAdd.IsEquippable = IsEquippable;
 	
-	if (inventory.Contains(Name))
+	if (Inventory.Contains(Name))
 		return InventoryError::EDuplicateItemType;
 
-	inventory[Name] = inventoryItemToAdd;
+	Inventory[Name] = inventoryItemToAdd;
 
 	return InventoryError::ESuccess;
 }
