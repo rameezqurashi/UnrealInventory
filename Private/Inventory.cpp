@@ -39,10 +39,12 @@ void UInventory::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompo
 
 InventoryError UInventory::AddPossibleStat(const FString PossibleStat)
 {
+	if (possibleStats.Contains(PossibleStat))
+		return InventoryError::EDuplicateStat;
 
-		possibleStats.Add(PossibleStat);
+	possibleStats.Add(PossibleStat);
 
-		return InventoryError();
+	return InventoryError::ESuccess;
 }
 
 TArray<FString> UInventory::GetPossibleStats()
