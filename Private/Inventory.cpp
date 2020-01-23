@@ -14,6 +14,11 @@ UInventory::UInventory()
 }
 
 
+TArray<FInventoryItem> UInventory::GetEquippedItems()
+{
+	return TArray<FInventoryItem>();
+}
+
 // Called when the game starts
 void UInventory::BeginPlay()
 {
@@ -32,3 +37,68 @@ void UInventory::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompo
 	// ...
 }
 
+void UInventory::SetPossibleStats(const TSet<FString> PossibleStats)
+{
+	possibleStats = PossibleStats;
+}
+
+TSet<FString> UInventory::GetPossibleStats()
+{
+	return possibleStats;
+}
+
+InventoryError UInventory::AddInventoryItemType(const FString& Name, 
+												const FString& FlavorText, 
+												const UTexture2D* Thumbnail, 
+												const UTexture2D* FullImage, 
+												const TMap<FString, FBoostAndDuration> StatsBoostsAndDurations, 
+												const bool IsConsumable /* = true*/, 
+												const bool IsEquippable /* = false*/)
+{
+	for (auto& Elem : StatsBoostsAndDurations)
+	{
+		if (!possibleStats.Contains(Elem.Key))
+			return InventoryError::EInvalidStatUsed;
+	}
+
+	FInventoryItem inventoryItemToAdd;
+	inventoryItemToAdd.Name = Name;
+	inventoryItemToAdd.FlavorText = FlavorText;
+	inventoryItemToAdd.Thumbnail = const_cast<UTexture2D*>(Thumbnail);
+	inventoryItemToAdd.FullImage = const_cast<UTexture2D*>(FullImage);
+	inventoryItemToAdd.StatsBoostsAndDurations = StatsBoostsAndDurations;
+	inventoryItemToAdd.IsConsumable = IsConsumable;
+	inventoryItemToAdd.IsEquippable = IsEquippable;
+	
+	if (inventory.Contains(Name))
+		return InventoryError::EDuplicateItemType;
+
+	inventory[Name] = inventoryItemToAdd;
+
+	return InventoryError::ESuccess;
+}
+
+InventoryError UInventory::AddItem(const FString& ItemToAdd, const int Quantity)
+{
+	return InventoryError();
+}
+
+InventoryError UInventory::ConsumeItem(const FString& ItemToConsume, const int Quantity)
+{
+	return InventoryError();
+}
+
+InventoryError UInventory::EquipItem(const FString& ItemToEquip)
+{
+	return InventoryError();
+}
+
+InventoryError UInventory::UnequipItem(const FString& ItemToUnequip)
+{
+	return InventoryError();
+}
+
+TArray<FInventoryItem> UInventory::GetInventory()
+{
+	return TArray<FInventoryItem>();
+}
