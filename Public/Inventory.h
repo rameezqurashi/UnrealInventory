@@ -201,11 +201,13 @@ public:
 	/** Get the current inventory 
 	 * @return TMap containing all inventory items and their counts.
 	 */
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	TArray<FInventoryItem> GetInventory();
 
 	/** Get equipped items
 	 * @return TSet containing all currently equipped inventory items.
 	 */
+	UFUNCTION(BlueprintCallable, Category = "Inventory")
 	TArray<FInventoryItem> GetEquippedItems();
 
 protected:
