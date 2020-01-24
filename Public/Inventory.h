@@ -139,8 +139,9 @@ public:
 									const UTexture2D* Thumbnail, 
 									const UTexture2D* FullImage,
 									const TMap<FString, FBoostAndDuration> StatsBoostsAndDurations,
-									const bool isConsumable = true,
-									const bool isEquippable = false);
+									const int MaximumQuantity = 1,
+									const bool IsConsumable = true,
+									const bool IsEquippable = false);
 
 	/** Add a desired quantity of an item in the inventory
 	 * @param ItemToAdd is a string containing the name of an item in the

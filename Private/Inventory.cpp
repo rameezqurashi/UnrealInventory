@@ -72,6 +72,7 @@ InventoryError UInventory::AddInventoryItemType(const FString& Name,
 												const UTexture2D* Thumbnail, 
 												const UTexture2D* FullImage, 
 												const TMap<FString, FBoostAndDuration> StatsBoostsAndDurations, 
+												const int MaximumQuantity /* = 1 */,
 												const bool IsConsumable /* = true*/, 
 												const bool IsEquippable /* = false*/)
 {
@@ -87,13 +88,14 @@ InventoryError UInventory::AddInventoryItemType(const FString& Name,
 	inventoryItemToAdd.Thumbnail = const_cast<UTexture2D*>(Thumbnail);
 	inventoryItemToAdd.FullImage = const_cast<UTexture2D*>(FullImage);
 	inventoryItemToAdd.StatsBoostsAndDurations = StatsBoostsAndDurations;
+	inventoryItemToAdd.MaximumQuantity = MaximumQuantity;
 	inventoryItemToAdd.IsConsumable = IsConsumable;
 	inventoryItemToAdd.IsEquippable = IsEquippable;
 	
 	if (Inventory.Contains(Name))
 		return InventoryError::EDuplicateItemType;
 
-	Inventory[Name] = inventoryItemToAdd;
+	Inventory.Add(Name, inventoryItemToAdd);
 
 	return InventoryError::ESuccess;
 }
