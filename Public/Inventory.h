@@ -8,8 +8,8 @@
 #include "Components/ActorComponent.h"
 #include "Inventory.generated.h"
 
-UENUM()
-enum class InventoryError : int32
+UENUM(BlueprintType)
+enum class InventoryError : uint8
 {
 	ESuccess					UMETA(DisplayName = "Success"),
 	EInvalidStatUsed			UMETA(DisplayName = "InvalidStatUsed"), 
